@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import "bootstrap/dist/css/bootstrap.css";
 
 const Register = () => {
+
   const {
     register,
     handleSubmit,
@@ -12,7 +13,6 @@ const Register = () => {
   } = useForm({ mode: 'onChange' });
 
   const onSubmit = (data, event) => {
-    console.log(data);
     event.preventDefault();
   };
 
@@ -20,29 +20,28 @@ const Register = () => {
     const lowercaseRegex = /[a-z]/;
     const uppercaseRegex = /[A-Z]/;
     const digitRegex = /\d/;
-    const specialCharRegex = /[!@#$%^&*()_+{}\[\]:;<>,.?~\-\\/]/;
+    const specialCharRegex = /[!@#$%^&*()_+{}\]\[:;<>,.?~\-\\/]/;
 
-    let errorMessage = '';
+    let message = '';
 
     if (value.length < 8) {
-      errorMessage = 'Password must be at least 8 characters long';
-    } else {
-      if (!lowercaseRegex.test(value)) {
-        errorMessage = 'Password must contain at least one lowercase letter. ';
-      }
-      if (!uppercaseRegex.test(value)) {
-        errorMessage = 'Password must contain at least one uppercase letter. ';
-      }
-      if (!digitRegex.test(value)) {
-        errorMessage = 'Password must contain at least one digit. ';
-      }
-      if (!specialCharRegex.test(value)) {
-        errorMessage = 'Password must contain at least one special character. ';
-      }
+      message += 'Password must be at least 8 characters long.\n';
     }
-    return errorMessage === '' ? true : errorMessage;
-  };
+    if (!lowercaseRegex.test(value)) {
+      message += 'Password must contain at least one lowercase letter.\n';
+    }
+    if (!uppercaseRegex.test(value)) {
+      message += 'Password must contain at least one uppercase letter.\n';
+    }
+    if (!digitRegex.test(value)) {
+      message += 'Password must contain at least one digit.\n';
+    }
+    if (!specialCharRegex.test(value)) {
+      message += 'Password must contain at least one special character.\n';
+    }
 
+    return message === '' ? true : message;
+  };
   return (
     <div className="container h-100">
       <div className="row justify-content-sm-center h-100">
@@ -195,10 +194,7 @@ const Register = () => {
         </div>
       </div>
     </div>
-
   );
 };
 
 export default Register;
-
-// export default Register;

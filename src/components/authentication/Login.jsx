@@ -5,12 +5,27 @@ import Logo from "../../images/logo.png";
 
 const Login = () => {
   // State for storing username and password
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+  const [username, setUsername] = useState({
+    value: '',
+    error: false,
+  });
+  const [password, setPassword] = useState({
+    value: '',
+    error: false,
+  });
+
+  const handleBlur = (value, setState) => {
+    if (value.trim() === '') {
+      setState({ value, error: true });
+    }
+    else {
+      setState({ value, error: false });
+    }
+  };
 
   // Handle the form submission
-  const handleSubmit =(event) => {
-    console.log({username, password});
+  const handleSubmit = (event) => {
+    console.log({ username, password });
     event.preventDefault();
   };
   return (
@@ -18,7 +33,9 @@ const Login = () => {
       <div className="row justify-content-sm-center h-100">
         <div className="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9">
           <div className="text-center my-5">
-            <img src={Logo} alt="logo" width={100} />
+            <Link to={"#"}>
+              <img src={Logo} alt="logo" width={100} />
+            </Link>
           </div>
           <div className="card shadow-lg">
             <div className="card-body p-5">
@@ -76,7 +93,7 @@ const Login = () => {
           </div>
           <div className="card-footer py-3 border-0">
             <div className="text-center">
-              Don't have an account? <Link to="/register" className="text-dark">Create One</Link>
+              Don't have an account? <Link to="/register" className="text-dark">Register</Link>
             </div>
           </div>
         </div>
